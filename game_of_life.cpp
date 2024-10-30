@@ -86,6 +86,12 @@ void GameOfLife::SetDeadCell(char dead_cell) {
   }
 }
 
+GameOfLife GameOfLife::operator+(int N) const{
+  GameOfLife copy = GameOfLife(*this);
+  copy.NextNGen(N);
+  return copy;
+}
+
 
 void GameOfLife::NextNGen(int n) {
   while (n > 0) {
