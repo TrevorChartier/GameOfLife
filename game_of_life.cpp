@@ -97,6 +97,11 @@ GameOfLife& GameOfLife::operator+=(int N){
   return *this;
 }
 
+GameOfLife& GameOfLife::operator++(){
+  NextGen();
+  return *this;
+}
+
 void GameOfLife::NextNGen(int n) {
   while (n > 0) {
     NextGen();
