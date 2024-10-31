@@ -72,58 +72,65 @@ void GameOfLife::SetLiveCell(char live_cell) {
     throw(runtime_error(
         "Error \nFile: game_of_life.cpp\nFunction: SetLiveCell\nLive Cell "
         "character cannot be set the same as current Dead Cell character"));
-  }
-  else{
+  } else {
     this->live_cell_ = live_cell;
   }
 }
 
 void GameOfLife::SetDeadCell(char dead_cell) {
-  if(dead_cell == this->dead_cell_){
+  if (dead_cell == this->dead_cell_) {
     throw(runtime_error(
         "Error \nFile: game_of_life.cpp\nFunction: SetDeadCell\nDead Cell "
         "character cannot be set the same as current Live Cell character"));
   }
 }
 
-GameOfLife GameOfLife::operator+(int N) const{
+GameOfLife GameOfLife::operator+(int N) const {
   GameOfLife copy = GameOfLife(*this);
   copy.NextNGen(N);
   return copy;
 }
 
-GameOfLife& GameOfLife::operator+=(int N){
+GameOfLife &GameOfLife::operator+=(int N) {
   NextNGen(N);
   return *this;
 }
 
-GameOfLife& GameOfLife::operator++(){
+GameOfLife &GameOfLife::operator++() {
   NextGen();
   return *this;
 }
 
-GameOfLife GameOfLife::operator++(int){
+GameOfLife GameOfLife::operator++(int) {
   GameOfLife copy = GameOfLife(*this);
-  NextGen(); 
+  NextGen();
   return copy;
 }
 
-bool GameOfLife::operator==(const GameOfLife &other) const{
+bool GameOfLife::operator==(const GameOfLife &other) const {
   double difference = (this->CalcPercentLiving() - other.CalcPercentLiving());
-  if(std::abs(difference) < 0.005){
+  if (std::abs(difference) < 0.005) {
     return true;
   }
+  return false;
 }
 
-double GameOfLife::CalcPercentLiving() const{
+bool GameOfLife::operator<(const GameOfLife &other) const {
+  if ( this->CalcPercentLiving() < other.CalcPercentLiving()){
+    return true;
+  }
+  return false;
+}
+
+double GameOfLife::CalcPercentLiving() const {
   int size = this->current_.length();
   double numAlive = 0.0;
-  for(int i = 0; i< size; ++i){
-    if(Alive(i)){
+  for (int i = 0; i < size; ++i) {
+    if (Alive(i)) {
       ++numAlive;
     }
   }
-  return numAlive/size;
+  return numAlive / size;
 }
 void GameOfLife::NextNGen(int n) {
   while (n > 0) {
@@ -205,7 +212,9 @@ int GameOfLife::NumAlive(std::array<size_t, 8> cell_indices) {
   return total_alive;
 }
 
-bool GameOfLife::Alive(size_t index) const { return this->current_[index] == '*'; }
+bool GameOfLife::Alive(size_t index) const {
+  return this->current_[index] == '*';
+}
 
 size_t GameOfLife::ConvertTo1D(int row, int col) {
   return (row * this->width_) + col;
@@ -229,8 +238,6 @@ int GameOfLife::IncrementRow(int row) { return (row + 1) % this->height_; }
 int GameOfLife::DecrementRow(int row) {
   return ((row - 1) + this->height_) % this->height_;
 }
-
-
 
 std::ostream &GOL::operator<<(ostream &os, const GameOfLife &game) {
   os << "Generation: " << game.GetGenerations() << '\n';
