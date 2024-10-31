@@ -219,6 +219,12 @@ public:
   bool operator>=(const GameOfLife &) const;
 
   /**
+   * CalcPercentLiving()
+   * Calculate and return the percentage of cells in the game board that are alive
+   */
+  double CalcPercentLiving() const;
+
+  /**
    * NextNGen()
    * @brief Calculates the next N generations of the current GameOfLife object
    * and sets this to be the new state of the object. Utilizes wrap around to
@@ -287,7 +293,7 @@ private:
    *
    * @return boolean: true if cell is alive, otherwise false
    */
-  bool Alive(size_t index);
+  bool Alive(size_t index) const;
 
   /**
    * ConvertTo1d(int row, int col))
