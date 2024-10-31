@@ -83,6 +83,9 @@ void GameOfLife::SetDeadCell(char dead_cell) {
         "Error \nFile: game_of_life.cpp\nFunction: SetDeadCell\nDead Cell "
         "character cannot be set the same as current Live Cell character"));
   }
+  else{
+    this->dead_cell_ = dead_cell;
+  }
 }
 
 GameOfLife GameOfLife::operator+(int N) const {
@@ -153,6 +156,7 @@ double GameOfLife::CalcPercentLiving() const {
   }
   return numAlive / size;
 }
+
 void GameOfLife::NextNGen(int n) {
   while (n > 0) {
     NextGen();
@@ -218,7 +222,7 @@ std::array<size_t, 8> GameOfLife::GetNeighborIndices(size_t index) {
   neighbor_indices[6] =
       ConvertTo1D(IncrementRow(row), DecrementCol(col)); // down left
   neighbor_indices[7] =
-      ConvertTo1D(IncrementRow(row), IncrementRow(col)); // down right
+      ConvertTo1D(IncrementRow(row), IncrementCol(col)); // down right
 
   return neighbor_indices;
 }
