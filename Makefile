@@ -17,7 +17,7 @@ export opts=-D_FORTIFY_SOURCE=2 -fno-diagnostics-show-option	\
 -Wzero-as-null-pointer-constant
 CXXFLAGS=-Wall $$opts
 
-assignment=ASN1
+assignment=ASN2
 
 $(assignment).a: game_of_life.o
 		ar -rcs $(assignment).a game_of_life.o
