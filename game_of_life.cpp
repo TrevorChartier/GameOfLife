@@ -78,7 +78,7 @@ void GameOfLife::SetLiveCell(char live_cell) {
 }
 
 void GameOfLife::SetDeadCell(char dead_cell) {
-  if (dead_cell == this->dead_cell_) {
+  if (dead_cell == this->live_cell_) {
     throw(runtime_error(
         "\nError \nFile: game_of_life.cpp\nFunction: SetDeadCell\nDead Cell "
         "character cannot be set the same as current Live Cell character"));
