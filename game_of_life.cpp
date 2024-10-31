@@ -122,6 +122,27 @@ bool GameOfLife::operator<(const GameOfLife &other) const {
   return false;
 }
 
+bool GameOfLife::operator>(const GameOfLife &other) const {
+  if (this->CalcPercentLiving() > other.CalcPercentLiving()){
+    return true;
+  }
+  return false;
+}
+
+bool GameOfLife::operator<=(const GameOfLife &other) const {
+  if(*this < other || *this == other){
+    return true;
+  }
+  return false;
+}
+
+bool GameOfLife::operator>=(const GameOfLife &other) const {
+  if(*this > other || *this == other){
+    return true;
+  }
+  return false;
+}
+
 double GameOfLife::CalcPercentLiving() const {
   int size = this->current_.length();
   double numAlive = 0.0;
