@@ -15,6 +15,18 @@
 namespace GOL {
 class GameOfLife {
   /**
+   * char live_cell_, this represents the character to display for live cells
+   * in the game board
+   */
+  char live_cell_;
+
+  /**
+   * char dead_cell_, this represents the character to display for dead cells
+   * in the game board
+   */
+  char dead_cell_;
+
+  /**
    * int width_, this integer stores the value for the width
    * of the game table
    */
@@ -27,22 +39,11 @@ class GameOfLife {
   int height_;
 
   /**
-   * char dead_cell_, this represents the character to display for dead cells
-   * in the game board
-   */
-  char dead_cell_;
-
-  /**
-   * char live_cell_, this represents the character to display for live cells
-   * in the game board
-   */
-  char live_cell_;
-
-  /**
    * std::string current_, this string stores the current status (dead or
    * alive) of every cell in the game board
    */
   std::string current_;
+  
   /**
    * int generations_, this integer stores the value for the current
    * generation that the game board is on
