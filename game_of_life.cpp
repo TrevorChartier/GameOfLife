@@ -70,7 +70,7 @@ GameOfLife::GameOfLife(string filename, char live_cell, char dead_cell,
 void GameOfLife::SetLiveCell(char live_cell) {
   if (live_cell == this->dead_cell_) {
     throw(runtime_error(
-        "Error \nFile: game_of_life.cpp\nFunction: SetLiveCell\nLive Cell "
+        "\nError \nFile: game_of_life.cpp\nFunction: SetLiveCell\nLive Cell "
         "character cannot be set the same as current Dead Cell character"));
   } else {
     this->live_cell_ = live_cell;
@@ -80,7 +80,7 @@ void GameOfLife::SetLiveCell(char live_cell) {
 void GameOfLife::SetDeadCell(char dead_cell) {
   if (dead_cell == this->dead_cell_) {
     throw(runtime_error(
-        "Error \nFile: game_of_life.cpp\nFunction: SetDeadCell\nDead Cell "
+        "\nError \nFile: game_of_life.cpp\nFunction: SetDeadCell\nDead Cell "
         "character cannot be set the same as current Live Cell character"));
   }
   else{
