@@ -96,6 +96,12 @@ GameOfLife GameOfLife::operator+(int N) const {
   return copy;
 }
 
+GameOfLife GameOfLife::operator-(int gens) const {
+  GameOfLife copy = GameOfLife(*this);
+  copy -= gens;
+  return copy;
+}
+
 GameOfLife &GameOfLife::operator+=(int N) {
   NextNGen(N);
   return *this;

@@ -239,7 +239,7 @@ public:
    *
    * @returns A reference to the decremented GameOfLife object
    */
-  GameOfLife operator-(int gens);
+  GameOfLife operator-(int gens) const;
 
   /**
    * operator+=(int)
