@@ -4,15 +4,43 @@
 #include <iostream>
 #include <string>
 
+namespace GOL {
 /**
- * The GameOfLife class handles the creation and update of a 2D
+ * struct game_save_state
+ *
+ * This struct stores the essential data relating to a previous GameOfLife
+ * generation necessary for roll-back capabilities.
+ */
+struct game_save_state {
+  /**
+   * std::string game_board, this string stores the status (dead or
+   * alive) of every cell in the game board
+   */
+  std::string game_board;
+
+  /**
+   * char live, this represents the character to display for live cells
+   * in the game board
+   */
+  char live;
+
+  /**
+   * char dead_cell_, this represents the character to display for dead cells
+   * in the game board
+   */
+  char dead;
+};
+
+/**
+ * class GameOfLife
+ *
+ * This class handles the creation and update of a 2D
  * game board representing the game of life. The game board
  * incorporates wrap around to calculate a cell's status in the
  * next generation based on it's number of live neighbors
  *
  * @author Trevor Chartier
  */
-namespace GOL {
 class GameOfLife {
   /**
    * char live_cell_, this represents the character to display for live cells
@@ -43,12 +71,25 @@ class GameOfLife {
    * alive) of every cell in the game board
    */
   std::string current_;
-  
+
   /**
    * int generations_, this integer stores the value for the current
-   * generation that the game board is on
+   * generation that the game board is on (starting from 0)
    */
   int generations_ = 0;
+
+  /**
+   * int rollback_limit_, this integer keeps track of the safe number of
+   * generations you can rollback to using the '-' operators
+   */
+  int rollback_limit_;
+
+  /**
+   * game_save_state previous_generations_[100]
+   *
+   * This array holds the previous 100 generations of a GameOfLife Object
+   */
+  game_save_state previous_generations_[100];
 
 public:
   /**
@@ -110,7 +151,9 @@ public:
 
   /**
    * GameOfLife(std::string filename, char live_cell, char dead_cell, int
-   * generationCount) Full Constructor, construct a GameOfLife object gameboard
+   * generationCount)
+   *
+   * Full Constructor, construct a GameOfLife object gameboard
    * from an input file with custom cell characters and a pre-generation
    * coommand
    *
@@ -221,7 +264,8 @@ public:
 
   /**
    * CalcPercentLiving()
-   * Calculate and return the percentage of cells in the game board that are alive
+   * Calculate and return the percentage of cells in the game board that are
+   * alive
    */
   double CalcPercentLiving() const;
 
