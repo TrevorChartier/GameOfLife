@@ -1,5 +1,5 @@
 # Ignore Compiled Files
-*.A
+*.a
 *.o
 *.tar
 
