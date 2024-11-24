@@ -31,6 +31,11 @@ struct game_save_state {
   char dead;
 
   /**
+   * Delete Default Constructor
+   */
+  game_save_state() = delete;  
+  
+  /**
    * game_save_state(std::string game_board, char live, char dead)
    *
    * Full constructor. Creates a game_save_state object

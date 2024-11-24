@@ -11,6 +11,9 @@ using namespace std;
 using namespace GOL;
 //@author Trevor Chartier
 
+game_save_state::game_save_state(std::string game_board, char live, char dead)
+    : game_board(game_board), live(live), dead(dead) {}
+
 GameOfLife::GameOfLife(string filename) : GameOfLife(filename, 0) {}
 
 GameOfLife::GameOfLife(string filename, int generationCount)
@@ -82,8 +85,7 @@ void GameOfLife::SetDeadCell(char dead_cell) {
     throw(runtime_error(
         "\nError \nFile: game_of_life.cpp\nFunction: SetDeadCell\nDead Cell "
         "character cannot be set the same as current Live Cell character"));
-  }
-  else{
+  } else {
     this->dead_cell_ = dead_cell;
   }
 }
@@ -119,28 +121,28 @@ bool GameOfLife::operator==(const GameOfLife &other) const {
 }
 
 bool GameOfLife::operator<(const GameOfLife &other) const {
-  if ( this->CalcPercentLiving() < other.CalcPercentLiving()){
+  if (this->CalcPercentLiving() < other.CalcPercentLiving()) {
     return true;
   }
   return false;
 }
 
 bool GameOfLife::operator>(const GameOfLife &other) const {
-  if (this->CalcPercentLiving() > other.CalcPercentLiving()){
+  if (this->CalcPercentLiving() > other.CalcPercentLiving()) {
     return true;
   }
   return false;
 }
 
 bool GameOfLife::operator<=(const GameOfLife &other) const {
-  if(*this < other || *this == other){
+  if (*this < other || *this == other) {
     return true;
   }
   return false;
 }
 
 bool GameOfLife::operator>=(const GameOfLife &other) const {
-  if(*this > other || *this == other){
+  if (*this > other || *this == other) {
     return true;
   }
   return false;
