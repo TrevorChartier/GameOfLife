@@ -302,7 +302,7 @@ public:
    * to (a freshly generated game or a game that has been rolled back to its
    * limits)
    */
-  GameOfLife &operator--(int);
+  GameOfLife operator--(int);
 
   /**
    * GameOfLife operator-()

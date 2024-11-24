@@ -92,7 +92,7 @@ void GameOfLife::SetDeadCell(char dead_cell) {
 
 GameOfLife GameOfLife::operator+(int N) const {
   GameOfLife copy = GameOfLife(*this);
-  copy.NextNGen(N);
+  copy += N;
   return copy;
 }
 
@@ -103,6 +103,10 @@ GameOfLife GameOfLife::operator-(int gens) const {
 }
 
 GameOfLife &GameOfLife::operator+=(int N) {
+  if(N < 0){
+    return *this -= (-N);
+  }
+
   NextNGen(N);
   return *this;
 }
@@ -130,9 +134,20 @@ GameOfLife &GameOfLife::operator++() {
   return *this;
 }
 
+GameOfLife &GameOfLife::operator--() {
+  *this -= 1;
+  return *this;
+}
+
 GameOfLife GameOfLife::operator++(int) {
   GameOfLife copy = GameOfLife(*this);
   NextGen();
+  return copy;
+}
+
+GameOfLife GameOfLife::operator--(int) {
+  GameOfLife copy = GameOfLife(*this);
+  *this -= 1;
   return copy;
 }
 
