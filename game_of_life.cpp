@@ -155,6 +155,14 @@ GameOfLife GameOfLife::operator--(int) {
   return copy;
 }
 
+GameOfLife GameOfLife::operator-() {
+  GameOfLife copy = GameOfLife(*this);
+  for(size_t i = 0; i < copy.current_.size(); ++i){
+    copy.ToggleCell(i);
+  }
+  return copy;
+}
+
 bool GameOfLife::operator==(const GameOfLife &other) const {
   double difference = (this->CalcPercentLiving() - other.CalcPercentLiving());
   if (std::abs(difference) < 0.005) {
