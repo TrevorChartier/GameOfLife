@@ -84,7 +84,7 @@ void GameOfLife::SetLiveCell(char live_cell) {
 void GameOfLife::SetDeadCell(char dead_cell) {
   if (dead_cell == this->live_cell_) {
     throw(runtime_error(
-        "\nError \nFile: game_of_life.cpp\nFunction: SetDeadCell\nDead Cell "
+        "\nError\nFile: game_of_life.cpp\nFunction: SetDeadCell\nDead Cell "
         "character cannot be set the same as current Live Cell character"));
   } else {
     this->dead_cell_ = dead_cell;
@@ -114,10 +114,13 @@ GameOfLife &GameOfLife::operator+=(int N) {
 
 GameOfLife &GameOfLife::operator-=(int N) {
   if (this->rollback_limit_ == 0)
-    throw domain_error("No generations available to roll back to");
+    throw domain_error("\nError\nFile: game_of_life.cpp \nFunction: operator "
+                       "-=\nNo generations available to roll back to");
   if (N > this->rollback_limit_)
-    throw range_error("Number of generations passed is greater than the number "
-                      "of generatios available to rollback to");
+    throw range_error(
+        "\nError\nFile: game_of_life.cpp \nFunction: operator -=\nNumber of "
+        "generations passed is greater than the number "
+        "of generatios available to rollback to");
 
   int prev_gen_num = this->generations_ - N;
   game_save_state prev = this->previous_generations_[prev_gen_num % 100];
@@ -205,15 +208,30 @@ bool GameOfLife::IsStillLife() const {
 
 void GameOfLife::ToggleCell(int index) {
   if (index < 0 || index >= static_cast<int>(this->current_.size())) {
-    throw new range_error("The cell at index " + to_string(index) +
-                          " cannot be toggled as it is out of bounds.");
+    throw range_error("\nError\nFile: game_of_life.cpp \nFunction: "
+                      "ToggleCell(int index) \nThe cell at index " +
+                      to_string(index) +
+                      " cannot be toggled as it is out of bounds.");
   }
   if (Alive(index)) {
     this->current_[index] = '-';
-  }
-  else{
+  } else {
     this->current_[index] = '*';
   }
+}
+
+void GameOfLife::ToggleCell(int row, int col) {
+  if (row < 0 || row >= this->height_) {
+    throw range_error("\nError\nFile: game_of_life.cpp \nFunction: "
+                      "ToggleCell(int row, int col)\nRow " +
+                      to_string(row) + " is out of bounds.");
+  }
+  if (col < 0 || col >= this->width_) {
+    throw range_error("\nError\nFile: game_of_life.cpp\nFunction: "
+                      "ToggleCell(int row, int col)\nColumn " +
+                      to_string(col) + " is out of bounds.");
+  }
+  ToggleCell(ConvertTo1D(row,col));
 }
 
 void GameOfLife::NextNGen(int n) {
