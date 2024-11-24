@@ -200,17 +200,50 @@ public:
 
   /**
    * operator+(int N)
-   * The "+" operator for GameOfLife objects returns what the
-   * state of the game board would be in int N generations
+   * The increment ("+") operator for GameOfLife objects returns what the
+   * state of the game board would be in int N generations. If N is negative,
+   * this is equivalent to calling the "-" operator
    */
   GameOfLife operator+(int N) const;
 
   /**
+   * GameOfLife operator-(int gens)
+   *
+   * The decrement ("-") operator for GameOfLife objects decrements the game by
+   * that many generations. Returns a new game that is the equivalent of rolling
+   * back the current game "gens" generations
+   *
+   * @throws range error :  if the number of generations passed is greater than
+   * the number of available generations to rollback to
+   *
+   * @returns A reference to the decremented GameOfLife object
+   */
+  GameOfLife operator-(int gens);
+
+  /**
    * operator+=(int)
    * The "+=" operator for GameOfLife objects calculates the
-   * next int N generations on the current object and returns itself
+   * next int N generations on the current object and returns itself. If the
+   * specified value is negative, this is equivalent to calling the "-="
+   * operator
    */
   GameOfLife &operator+=(int);
+
+  /**
+   * operator-=(int)
+   * The "-=" operator for GameOfLife objects decrements the game by the
+   * specified number of generations.
+   *
+   * @throws domain error : if there are no generations available to roll back
+   * to (a freshly generated game or a game that has been rolled back to its
+   * limits)
+   *
+   * @throws range error :  if the number of generations passed is greater than
+   * the number of available generations to rollback to
+   *
+   * @returns A reference to the decremented GameOfLife object
+   */
+  GameOfLife &operator-=(int gens);
 
   /**
    * operator++()
@@ -220,11 +253,43 @@ public:
   GameOfLife &operator++();
 
   /**
+   * GameOfLife& operator--()
+   *
+   * Pre-decrement operator. Decrements the current game by one and returns the
+   * current game after the decrementation
+   *
+   * @throws domain error : if there are no generations available to roll back
+   * to (a freshly generated game or a game that has been rolled back to its
+   * limits)
+   */
+  GameOfLife &operator--();
+
+  /**
    * operator++(int)
    * The postincrement operator calculates the next generation on the current
    * object but returns a version of itself before the increment
    */
   GameOfLife operator++(int);
+
+  /**
+   * GameOfLife& operator--(int)
+   *
+   * Post-decrement operator. Decrements the current game by one and returns a
+   * reference to the game before the decrementation
+   *
+   * @throws domain error : if there are no generations available to roll back
+   * to (a freshly generated game or a game that has been rolled back to its
+   * limits)
+   */
+  GameOfLife &operator--(int);
+
+  /**
+   * GameOfLife operator-()
+   *
+   * Unary minus operator. "Negates" the game. Returns a copy of the game where
+   * all cells have swapped live/dead states
+   */
+  GameOfLife operator-();
 
   /**
    * operator==(const GameOfLife &)
