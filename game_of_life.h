@@ -33,7 +33,7 @@ struct game_save_state {
   /**
    * Delete Default Constructor
    */
-  game_save_state() = delete;  
+  game_save_state() = default;  
   
   /**
    * game_save_state(std::string game_board, char live, char dead)
