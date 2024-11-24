@@ -29,6 +29,22 @@ struct game_save_state {
    * in the game board
    */
   char dead;
+
+  /**
+   * game_save_state(std::string game_board, char live, char dead)
+   *
+   * Full constructor. Creates a game_save_state object
+   *
+   * @param game_board : stores the status (dead or
+   * alive) of every cell in the game board
+   *
+   * @param live : represents the character to display for live cells
+   * in the game board
+   *
+   * @param dead : represents the character to display for dead cells in the
+   * game board
+   */
+  game_save_state(std::string game_board, char live, char dead);
 };
 
 /**
@@ -82,7 +98,7 @@ class GameOfLife {
    * int rollback_limit_, this integer keeps track of the safe number of
    * generations you can rollback to using the '-' operators
    */
-  int rollback_limit_;
+  int rollback_limit_ = 0;
 
   /**
    * game_save_state previous_generations_[100]
