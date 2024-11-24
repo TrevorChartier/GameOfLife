@@ -11,8 +11,8 @@ using namespace std;
 using namespace GOL;
 //@author Trevor Chartier
 
-game_save_state::game_save_state(std::string game_board, char live, char dead)
-    : game_board(game_board), live(live), dead(dead) {}
+game_save_state::game_save_state(std::string game_board_param, char live_param, char dead_param)
+    : game_board(game_board_param), live(live_param), dead(dead_param) {}
 
 GameOfLife::GameOfLife(string filename) : GameOfLife(filename, 0) {}
 
@@ -101,6 +101,24 @@ GameOfLife &GameOfLife::operator+=(int N) {
   return *this;
 }
 
+GameOfLife &GameOfLife::operator-=(int N) {
+  if (this->rollback_limit_ == 0)
+    throw domain_error("No generations available to roll back to");
+  if (N > this->rollback_limit_)
+    throw range_error("Number of generations passed is greater than the number "
+                      "of generatios available to rollback to");
+  
+  int prev_gen_num = this->generations_ - N;
+  game_save_state prev = this->previous_generations_[prev_gen_num % 100];
+  this->current_ = prev.game_board;
+  this->live_cell_ = prev.live;
+  this->dead_cell_ = prev.dead;
+  this->generations_ = prev_gen_num;
+  this->rollback_limit_ -= N;
+
+  return *this;
+}
+
 GameOfLife &GameOfLife::operator++() {
   NextGen();
   return *this;
@@ -167,6 +185,13 @@ void GameOfLife::NextNGen(int n) {
 }
 
 void GameOfLife::NextGen() {
+  // Save current game state prior to incrementing
+  game_save_state curr_state(this->current_, this->live_cell_,
+                             this->dead_cell_);
+  this->previous_generations_[this->generations_ % 100] = curr_state;
+  if (this->rollback_limit_ < 100)
+    ++this->rollback_limit_;
+
   std::string TO;
   TO.resize(this->current_.size());
 

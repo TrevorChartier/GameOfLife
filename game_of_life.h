@@ -49,7 +49,7 @@ struct game_save_state {
    * @param dead : represents the character to display for dead cells in the
    * game board
    */
-  game_save_state(std::string game_board, char live, char dead);
+  game_save_state(std::string game_board_param, char live_param, char dead_param);
 };
 
 /**
