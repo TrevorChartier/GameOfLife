@@ -193,7 +193,14 @@ public:
    * Retreives the number of generation calculations that the
    * GameOfLife object has gone through
    */
-  int GetGenerations() const { return generations_; }
+  int GetGenerations() const { return this->generations_; }
+
+  /**
+   * GetAvailableGens();
+   * 
+   * Returns the count of the available gens for rollback for the '-' operators
+   */
+  int GetAvailableGens() const { return this->rollback_limit_; }
 
   /**
    * SetLiveCell(char live_cell)
