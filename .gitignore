@@ -1,0 +1,8 @@
+# Ignore Compiled Files
+*.A
+*.o
+*.tar
+
+# Ignore Test Files
+test.cpp
+test.exe
