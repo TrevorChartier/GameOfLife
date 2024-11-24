@@ -372,6 +372,22 @@ public:
   bool IsStillLife() const;
 
   /**
+   * void ToggleCell(int index)
+   * This method sets a live cell at index to a dead cell and vice-versa
+   * 
+   * @throws range error if index is out of bounds
+   */
+  void ToggleCell(int index);
+
+  /**
+   * void ToggleCell(int row, int col)
+   * This method sets a live cell at row,col to dead and vice-versa
+   * 
+   * @throws range error if either row or col is out of bounds
+   */
+  void ToggleCell(int row, int col);
+
+  /**
    * NextNGen()
    * @brief Calculates the next N generations of the current GameOfLife object
    * and sets this to be the new state of the object. Utilizes wrap around to

@@ -11,7 +11,8 @@ using namespace std;
 using namespace GOL;
 //@author Trevor Chartier
 
-game_save_state::game_save_state(std::string game_board_param, char live_param, char dead_param)
+game_save_state::game_save_state(std::string game_board_param, char live_param,
+                                 char dead_param)
     : game_board(game_board_param), live(live_param), dead(dead_param) {}
 
 GameOfLife::GameOfLife(string filename) : GameOfLife(filename, 0) {}
@@ -103,7 +104,7 @@ GameOfLife GameOfLife::operator-(int gens) const {
 }
 
 GameOfLife &GameOfLife::operator+=(int N) {
-  if(N < 0){
+  if (N < 0) {
     return *this -= (-N);
   }
 
@@ -117,7 +118,7 @@ GameOfLife &GameOfLife::operator-=(int N) {
   if (N > this->rollback_limit_)
     throw range_error("Number of generations passed is greater than the number "
                       "of generatios available to rollback to");
-  
+
   int prev_gen_num = this->generations_ - N;
   game_save_state prev = this->previous_generations_[prev_gen_num % 100];
   this->current_ = prev.game_board;
@@ -200,6 +201,19 @@ double GameOfLife::CalcPercentLiving() const {
 
 bool GameOfLife::IsStillLife() const {
   return this->current_ == (*this + 1).current_;
+}
+
+void GameOfLife::ToggleCell(int index) {
+  if (index < 0 || index >= static_cast<int>(this->current_.size())) {
+    throw new range_error("The cell at index " + to_string(index) +
+                          " cannot be toggled as it is out of bounds.");
+  }
+  if (Alive(index)) {
+    this->current_[index] = '-';
+  }
+  else{
+    this->current_[index] = '*';
+  }
 }
 
 void GameOfLife::NextNGen(int n) {
