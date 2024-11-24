@@ -198,6 +198,10 @@ double GameOfLife::CalcPercentLiving() const {
   return numAlive / size;
 }
 
+bool GameOfLife::IsStillLife() const {
+  return this->current_ == (*this + 1).current_;
+}
+
 void GameOfLife::NextNGen(int n) {
   while (n > 0) {
     NextGen();

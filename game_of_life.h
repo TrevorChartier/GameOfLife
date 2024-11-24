@@ -33,8 +33,8 @@ struct game_save_state {
   /**
    * Delete Default Constructor
    */
-  game_save_state() = default;  
-  
+  game_save_state() = default;
+
   /**
    * game_save_state(std::string game_board, char live, char dead)
    *
@@ -49,7 +49,8 @@ struct game_save_state {
    * @param dead : represents the character to display for dead cells in the
    * game board
    */
-  game_save_state(std::string game_board_param, char live_param, char dead_param);
+  game_save_state(std::string game_board_param, char live_param,
+                  char dead_param);
 };
 
 /**
@@ -197,7 +198,7 @@ public:
 
   /**
    * GetAvailableGens();
-   * 
+   *
    * Returns the count of the available gens for rollback for the '-' operators
    */
   int GetAvailableGens() const { return this->rollback_limit_; }
@@ -361,6 +362,14 @@ public:
    * alive
    */
   double CalcPercentLiving() const;
+
+  /**
+   * bool IsStillLife()
+   * Checks to see if the current generation of the game is a Still Life.
+   * Meaning that no cells change between the current generation and the next
+   * generation.
+   */
+  bool IsStillLife() const;
 
   /**
    * NextNGen()
